@@ -2,32 +2,36 @@ package UserConfig;
 
 import java.util.ArrayList;
 
+import ServerConfig.Dados;
+
 public class Storage {
 
-	private ArrayList<String> message;
+	private ArrayList<Dados> messages;
 
 	public Storage() {
-		message = new ArrayList<String>();
+		messages = new ArrayList<Dados>();
 	}
 
-	public void addMessage(String newMessage) {
-		this.message.add(newMessage);
+	public void addMessage(String newMessage, String apelidoMaquinaAtual, String apelidoMaquinaDestino) {
+		String controle = "nao sei";
+		Dados dado = new Dados("2345", controle, apelidoMaquinaAtual, apelidoMaquinaDestino, 19385749, newMessage);
+		this.messages.add(dado);
 	}
 
 	public String getFirtMessage() {
-		if (message.size() == 0) {
+		if (messages.size() == 0) {
 			return null;
 		} else {
-			String returnMessage = message.get(0);
-			message.remove(0);
+			String returnMessage = messages.get(0).print();
+			messages.remove(0);
 			return returnMessage;
 		}
 
 	}
 
 	public void print() {
-		for (String string : message) {
-			System.out.println(string);
+		for (Dados dado : messages) {
+			System.out.println(dado.print());
 		}
 	}
 }

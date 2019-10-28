@@ -20,7 +20,7 @@ public class Main {
 		Storage storage = new Storage();
 
 		// cria Thread para escutar o usuario
-		Thread listenUserThread = new Thread(new ThreadListenUser(storage));
+		Thread listenUserThread = new Thread(new ThreadListenUser(arquivoDeConfiguracao, storage));
 
 		// cria Thread para escutar anel
 		Thread listenServerThread = new Thread(new ThreadListenServer(arquivoDeConfiguracao, storage));
@@ -50,8 +50,9 @@ public class Main {
 		InetAddress myIP = null;
 		InetAddress nextIP = null;
 		int porta = 9876;// 6000;
-		String apelido = "bob";
-		int tempo = 1;
+		String apelidoOrigem = "bob";
+		String apelidoDestino = "alice";
+		int tempo = 3;
 		boolean token;// = true;
 
 		try {
@@ -85,7 +86,7 @@ public class Main {
 			e.printStackTrace();
 		}
 
-		ConfigArq arquivoDeConfiguracao = new ConfigArq(myIP, nextIP, porta, apelido, tempo, token);
+		ConfigArq arquivoDeConfiguracao = new ConfigArq(myIP, nextIP, porta, apelidoOrigem, apelidoDestino, tempo, token);
 		arquivoDeConfiguracao.print();
 
 		return arquivoDeConfiguracao;

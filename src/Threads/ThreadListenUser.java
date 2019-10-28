@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import ServerConfig.ConfigArq;
 import UserConfig.Storage;
 
 public class ThreadListenUser implements Runnable {
@@ -11,9 +12,11 @@ public class ThreadListenUser implements Runnable {
 	private BufferedReader inFromUser;
 	private Storage storage;
 	private String sentence = "";
+	private ConfigArq arquivoDeConfiguracao;
 
-	public ThreadListenUser(Storage storage) {
+	public ThreadListenUser(ConfigArq arquivoDeConfiguracao, Storage storage) {
 		this.storage = storage;
+		this.arquivoDeConfiguracao = arquivoDeConfiguracao;
 		setBeforeRun();
 	}
 
@@ -32,7 +35,7 @@ public class ThreadListenUser implements Runnable {
 				e.printStackTrace();
 			}
 
-			storage.addMessage(sentence);
+			storage.addMessage(sentence, arquivoDeConfiguracao.getApelidoDaMaquinaAtual(), arquivoDeConfiguracao.getApelidoDaMaquinaDestino());
 		}
 	}
 }
