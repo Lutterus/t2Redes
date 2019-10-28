@@ -19,18 +19,18 @@ public class Main {
 		ConfigArq arquivoDeConfiguracao = configArq();
 
 		// cria Thread para escutar o usuario
-		Thread listenUserThread = new Thread(new ThreadListenUser());
+		//Thread listenUserThread = new Thread(new ThreadListenUser());
 
 		// cria Thread para escutar anel
 		Thread listenServerThread = new Thread(new ThreadListenServer(arquivoDeConfiguracao));
 
 		// inicia a thread
-		listenUserThread.start();
+		//listenUserThread.start();
 		listenServerThread.start();
 
 		// forca para esperar a finalizacao da thread
 		try {
-			listenUserThread.join();
+			//listenUserThread.join();
 			listenServerThread.join();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -53,7 +53,8 @@ public class Main {
 		boolean token;// = true;
 
 		try {
-			ip = InetAddress.getLocalHost();
+			ip = InetAddress.getByName("192.168.0.4");
+			//ip = InetAddress.getLocalHost();
 			// ip = InetAddress.getByName("localhost");
 		} catch (UnknownHostException e1) {
 			// TODO Auto-generated catch block

@@ -21,7 +21,8 @@ public class ConfigArq {
 	public void print() {
 		System.out.println("ip: " + ipDestinoToken.toString());
 		System.out.println("porta " + porta);
-		System.out.println("apelido: " + tempoToken);
+		System.out.println("tempo token: " + tempoToken);
+		System.out.println("apelido: " + ApelidoDaMaquinaAtual);
 		System.out.println("token: " + token);
 	}
 
