@@ -5,13 +5,15 @@ import java.net.InetAddress;
 public class ConfigArq {
 	
 	private InetAddress ipDestinoToken;
+	private InetAddress ipOrigemToken;
 	private int porta;
 	private String ApelidoDaMaquinaAtual;
 	private int tempoToken;
 	private boolean token;
 	
-	public ConfigArq(InetAddress ip, int porta, String apelido, int tempo, boolean token) {
+	public ConfigArq(InetAddress ip, InetAddress nextIP, int porta, String apelido, int tempo, boolean token) {
 		setIpDestinoToken(ip);
+		setIpOrigemToken(nextIP);
 		setPorta(porta);
 		setApelidoDaMaquinaAtual(apelido);
 		setTempoToken(tempo);
@@ -64,5 +66,13 @@ public class ConfigArq {
 
 	public void setPorta(int porta) {
 		this.porta = porta;
+	}
+
+	public InetAddress getIpOrigemToken() {
+		return ipOrigemToken;
+	}
+
+	public void setIpOrigemToken(InetAddress ipOrigemToken) {
+		this.ipOrigemToken = ipOrigemToken;
 	}
 }

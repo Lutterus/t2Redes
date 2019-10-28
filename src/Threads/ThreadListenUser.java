@@ -12,12 +12,12 @@ public class ThreadListenUser implements Runnable {
 	private Storage storage;
 	private String sentence = "";
 
-	public ThreadListenUser() {
+	public ThreadListenUser(Storage storage) {
+		this.storage = storage;
 		setBeforeRun();
 	}
 
 	public void setBeforeRun() {
-		storage = new Storage();
 		// cria o stream do teclado
 		inFromUser = new BufferedReader(new InputStreamReader(System.in));
 	}

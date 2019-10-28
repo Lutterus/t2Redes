@@ -4,11 +4,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import ServerConfig.ConfigArq;
 import Threads.ThreadListenServer;
 import Threads.ThreadListenUser;
+import UserConfig.Storage;
 
 public class Main {
 
@@ -17,20 +17,21 @@ public class Main {
 		System.out.println("Bem Vindo!");
 
 		ConfigArq arquivoDeConfiguracao = configArq();
+		Storage storage = new Storage();
 
 		// cria Thread para escutar o usuario
-		//Thread listenUserThread = new Thread(new ThreadListenUser());
+		Thread listenUserThread = new Thread(new ThreadListenUser(storage));
 
 		// cria Thread para escutar anel
-		Thread listenServerThread = new Thread(new ThreadListenServer(arquivoDeConfiguracao));
+		Thread listenServerThread = new Thread(new ThreadListenServer(arquivoDeConfiguracao, storage));
 
 		// inicia a thread
-		//listenUserThread.start();
+		listenUserThread.start();
 		listenServerThread.start();
 
 		// forca para esperar a finalizacao da thread
 		try {
-			//listenUserThread.join();
+			listenUserThread.join();
 			listenServerThread.join();
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -43,23 +44,15 @@ public class Main {
 		System.out.println("Maquina principal?");
 		// cria o stream do teclado
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
-		String sentence = null;
 
+		String sentence = null;
 		// String ip = "192.168.1.12";
-		InetAddress ip = null;
+		InetAddress myIP = null;
+		InetAddress nextIP = null;
 		int porta = 9876;// 6000;
-		String apelido = "Bob";
+		String apelido = "bob";
 		int tempo = 1;
 		boolean token;// = true;
-
-		try {
-			ip = InetAddress.getByName("192.168.0.4");
-			//ip = InetAddress.getLocalHost();
-			// ip = InetAddress.getByName("localhost");
-		} catch (UnknownHostException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
 
 		try {
 			sentence = inFromUser.readLine();
@@ -74,7 +67,25 @@ public class Main {
 			token = false;
 		}
 
-		ConfigArq arquivoDeConfiguracao = new ConfigArq(ip, porta, apelido, tempo, token);
+		System.out.println("Config 1 ou 2?");
+
+		try {
+			sentence = inFromUser.readLine();
+			if (sentence.contentEquals("1")) {
+				myIP = InetAddress.getByName("127.0.0.1");
+				nextIP = InetAddress.getByName("127.0.0.2");
+				// ip = InetAddress.getLocalHost();
+				// ip = InetAddress.getByName("localhost");
+			} else {
+				myIP = InetAddress.getByName("127.0.0.2");
+				nextIP = InetAddress.getByName("127.0.0.1");
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		ConfigArq arquivoDeConfiguracao = new ConfigArq(myIP, nextIP, porta, apelido, tempo, token);
 		arquivoDeConfiguracao.print();
 
 		return arquivoDeConfiguracao;

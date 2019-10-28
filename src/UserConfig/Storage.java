@@ -14,6 +14,17 @@ public class Storage {
 		this.message.add(newMessage);
 	}
 
+	public String getFirtMessage() {
+		if (message.size() == 0) {
+			return null;
+		} else {
+			String returnMessage = message.get(0);
+			message.remove(0);
+			return returnMessage;
+		}
+
+	}
+
 	public void print() {
 		for (String string : message) {
 			System.out.println(string);
