@@ -34,8 +34,12 @@ public class ThreadListenUser implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+			String[] array = sentence.split(";");
+			String apelidoDestino = array[0];
+			String mensagem = array[1];
 
-			storage.addMessage(sentence, arquivoDeConfiguracao.getApelidoDaMaquinaAtual(), arquivoDeConfiguracao.getApelidoDaMaquinaDestino());
+			storage.addMessage(mensagem, arquivoDeConfiguracao.getApelidoDaMaquinaAtual(), apelidoDestino);
 		}
 	}
 }

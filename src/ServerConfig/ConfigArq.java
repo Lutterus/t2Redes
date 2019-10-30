@@ -8,16 +8,14 @@ public class ConfigArq {
 	private InetAddress ipOrigemToken;
 	private int porta;
 	private String ApelidoDaMaquinaAtual;
-	private String ApelidoDaMaquinaDestino;
 	private int tempoToken;
 	private boolean token;
 	
-	public ConfigArq(InetAddress ip, InetAddress nextIP, int porta, String apelidoOrigem, String apelidoDestino, int tempo, boolean token) {
+	public ConfigArq(InetAddress ip, InetAddress nextIP, int porta, String apelidoOrigem, int tempo, boolean token) {
 		setIpDestinoToken(ip);
 		setIpOrigemToken(nextIP);
 		setPorta(porta);
 		setApelidoDaMaquinaAtual(apelidoOrigem);
-		setApelidoDaMaquinaDestino(apelidoDestino);
 		setTempoToken(tempo);
 		setToken(token);
 	}
@@ -76,13 +74,5 @@ public class ConfigArq {
 
 	public void setIpOrigemToken(InetAddress ipOrigemToken) {
 		this.ipOrigemToken = ipOrigemToken;
-	}
-
-	public String getApelidoDaMaquinaDestino() {
-		return ApelidoDaMaquinaDestino;
-	}
-
-	public void setApelidoDaMaquinaDestino(String apelidoDaMaquinaDestino) {
-		ApelidoDaMaquinaDestino = apelidoDaMaquinaDestino;
 	}
 }

@@ -10,21 +10,20 @@ import UserConfig.Storage;
 
 public class ThreadAnswerServer implements Runnable {
 
-	private Storage storage;
+	private String sentence;
 	private ConfigArq arquivoDeConfiguracao;
 
-	public ThreadAnswerServer(Storage storage, ConfigArq arquivoDeConfiguracao) {
-		this.storage = storage;
+	public ThreadAnswerServer(String sentence, ConfigArq arquivoDeConfiguracao) {
+		this.sentence = sentence;
 		this.arquivoDeConfiguracao = arquivoDeConfiguracao;
 	}
 
 	@Override
 	public void run() {
-		String sentence = storage.getFirtMessage();
-
 		if (sentence == null) {
-			System.out.println("null");
+			System.out.println("Nenhuma mensagem a ser enviada");
 		} else {
+			System.out.println("---essa e a mensagem a ser enviada: " + sentence);
 			// declara socket cliente
 			DatagramSocket clientSocket = null;
 			try {
@@ -35,9 +34,8 @@ public class ThreadAnswerServer implements Runnable {
 			}
 
 			byte[] sendData = new byte[1024];
-
-			// l� uma linha do teclado
-
+			
+			//le a mensagem
 			sendData = sentence.getBytes();
 
 			// cria pacote com o dado, o endere�o do server e porta do servidor

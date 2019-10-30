@@ -6,10 +6,10 @@ public class Dados {
 	private String controleDeErro;
 	private String apelidoDeOrigem;
 	private String apelidoDoDestino;
-	private double CRC;
+	private int CRC;
 	private String mensagem;
 
-	public Dados(String head, String controleDeErro, String apelidoDeOrigem, String apelidoDoDestino, double CRC, String mensagem) {
+	public Dados(String head, String controleDeErro, String apelidoDeOrigem, String apelidoDoDestino, int CRC, String mensagem) {
 		setHead(head);
 		setControleDeErro(controleDeErro);
 		setApelidoDeOrigem(apelidoDeOrigem);
@@ -56,11 +56,11 @@ public class Dados {
 		this.apelidoDoDestino = apelidoDoDestino;
 	}
 
-	public double getCRC() {
+	public int getCRC() {
 		return CRC;
 	}
 
-	public void setCRC(double cRC) {
+	public void setCRC(int cRC) {
 		CRC = cRC;
 	}
 

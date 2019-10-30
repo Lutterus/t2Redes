@@ -1,0 +1,2 @@
+-ler aquivo de configuração
+-implementar: Deve-se utilizar o CRC 16 como técnica de controle de erro. Ao receber uma mensagem, a máquina destino deve recalcular o controle de erro. Caso a mensagem tenha sido recebida com erro, ela deve ser marcada com “erro”, senão ela deve ser marcada com “ACK”.

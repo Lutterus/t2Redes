@@ -41,7 +41,6 @@ public class Main {
 	}
 
 	private static ConfigArq configArq() {
-		System.out.println("Maquina principal?");
 		// cria o stream do teclado
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 
@@ -50,23 +49,9 @@ public class Main {
 		InetAddress myIP = null;
 		InetAddress nextIP = null;
 		int porta = 9876;// 6000;
-		String apelidoOrigem = "bob";
-		String apelidoDestino = "alice";
-		int tempo = 3;
-		boolean token;// = true;
-
-		try {
-			sentence = inFromUser.readLine();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (sentence.contentEquals("s")) {
-			token = true;
-		} else {
-			token = false;
-		}
+		String apelidoOrigem = "";
+		int tempo = 5;
+		boolean token = true;
 
 		System.out.println("Config 1 ou 2?");
 
@@ -75,19 +60,24 @@ public class Main {
 			if (sentence.contentEquals("1")) {
 				myIP = InetAddress.getByName("127.0.0.1");
 				nextIP = InetAddress.getByName("127.0.0.2");
+				token = true;
+				apelidoOrigem = "bob";
 				// ip = InetAddress.getLocalHost();
 				// ip = InetAddress.getByName("localhost");
 			} else {
 				myIP = InetAddress.getByName("127.0.0.2");
 				nextIP = InetAddress.getByName("127.0.0.1");
+				token = false;
+				apelidoOrigem = "alice";
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		ConfigArq arquivoDeConfiguracao = new ConfigArq(myIP, nextIP, porta, apelidoOrigem, apelidoDestino, tempo, token);
-		arquivoDeConfiguracao.print();
+		ConfigArq arquivoDeConfiguracao = new ConfigArq(myIP, nextIP, porta, apelidoOrigem, tempo, token);
+		
+		System.out.println("Para enviar uma mensagem a uma pessoa, utilize: <apelidoDestino>;<mensagem>");
+		System.out.println("Para enviar uma mensagema a todos, utilize: TODOS;<mensagem>");
 
 		return arquivoDeConfiguracao;
 	}
