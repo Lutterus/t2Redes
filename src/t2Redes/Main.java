@@ -75,10 +75,11 @@ public class Main {
 			e.printStackTrace();
 		}
 		ConfigArq arquivoDeConfiguracao = new ConfigArq(myIP, nextIP, porta, apelidoOrigem, tempo, token);
-		
+
 		System.out.println("Para enviar uma mensagem a uma pessoa, utilize: <apelidoDestino>;<mensagem>");
 		System.out.println("Para enviar uma mensagema a todos, utilize: TODOS;<mensagem>");
-
+		System.out.println("/////////////////////////////////////////////////////");
+		System.out.println("/////////////////////////////////////////////////////");
 		return arquivoDeConfiguracao;
 	}
 }
