@@ -1,4 +1,4 @@
-package ServerConfig;
+package UserConfig;
 
 //esta classe serve para estruturar o que eh uma mensagem de dados
 

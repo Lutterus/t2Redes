@@ -1,10 +1,2 @@
 -ler aquivo de configuração
-
--Controle do Token
-A máquina que gera o token a primeira vez também deve controlá-lo. Essa máquina irá verificar
-se o token está passando por ela dentro de um determinado tempo. Dois problemas podem ser detectados por essa estação:
-1. o token não passa dentro de um tempo estipulado (timeout): um novo token deverá ser gerado, pois o mesmo foi perdido por uma estação do anel. Para tanto, deverá haver uma opção de retirada do token do anel por uma das máquinas; OU
-2. um token passa por ela em um tempo menor que o tempo mínimo: neste caso há mais de
-um token circulando na rede e, portanto, o token deverá ser retirado da rede. Nesse caso,
-deverá haver uma opção de geração de token, para que seja possível gerar tokens por
-qualquer máquina quando a rede estiver em funcionamento.
+-teste varios pcs

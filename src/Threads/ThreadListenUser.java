@@ -5,22 +5,23 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 import ServerConfig.ConfigArq;
-import UserConfig.Storage;
+import UserConfig.StorageMessage;
 
 //classe/thread para ouvir constantemente o usuario
 
 public class ThreadListenUser implements Runnable {
 	// instanciamento do teclado
 	private BufferedReader inFromUser;
-	// classe storage que armazena as mensagens
-	private Storage storage;
+	// classe storageMessage que armazena as mensagens
+	private StorageMessage storageMessage;
 	// mensagem atual
 	private String sentence = "";
 	// classe com as informacoes uteis de configuracao
 	private ConfigArq arquivoDeConfiguracao;
+	//thread do anel, importado para reiniciar caso necessario
 
-	public ThreadListenUser(ConfigArq arquivoDeConfiguracao, Storage storage) {
-		this.storage = storage;
+	public ThreadListenUser(ConfigArq arquivoDeConfiguracao, StorageMessage storageMessage) {
+		this.storageMessage = storageMessage;
 		this.arquivoDeConfiguracao = arquivoDeConfiguracao;
 		setBeforeRun();
 	}
@@ -51,9 +52,20 @@ public class ThreadListenUser implements Runnable {
 				String mensagem = array[1];
 
 				// adiciona na classe que armazena a lista de mensagens a nova mensagem
-				storage.addMessage(mensagem, arquivoDeConfiguracao.getApelidoDaMaquinaAtual(), apelidoDestino);
+				storageMessage.addMessage(mensagem, arquivoDeConfiguracao.getApelidoDaMaquinaAtual(), apelidoDestino);
 			} catch (Exception e) {
-				System.err.println("mensagem inserida no formato incorreto, utilize o formato informado");
+				if(sentence.contentEquals("TOKEN")||sentence.contentEquals("NTOKEN")) {
+					if(sentence.contentEquals("TOKEN")) {
+						System.out.println("Configuracao recebida. Novo token criado nesta maquina");
+						arquivoDeConfiguracao.setToken(true);
+					}else {
+						System.out.println("Configuracao recebida. o proximo token a passar sera ignorado");
+						arquivoDeConfiguracao.setIgnoreToken(true);
+					}
+				}else {
+					System.err.println("mensagem inserida no formato incorreto, utilize o formato informado");
+				}
+				
 			}
 			
 		}

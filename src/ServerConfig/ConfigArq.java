@@ -20,8 +20,18 @@ public class ConfigArq {
 	private boolean token;
 	// se esta foi a maquina agerar o token e eh quem fara o controle do mesmo
 	private boolean maquinaGeradora;
+	//tempo estipulado em que o token deve levar para dar a volta
+	private long tempoMG;
+	//tempo de tolerancia em torno do tempo estipulado
+	//ex: tempoMG = 5 segundos, tempoMGtolerancia = 1 segundo.
+	//se o jogo chegar em de 4 a 6 segundos, esta ok. Se chegar em menos de 4 ou mais de 6, nao esta ok
+	private long tempoMGtolerancia;
+	//ultima vez que estava com o token
+	private long tokenAntes;
+	//se devera ignorar o proximo token que vier
+	private boolean ignoreToken;
 
-	public ConfigArq(InetAddress ip, InetAddress nextIP, int porta, String apelidoOrigem, int tempo, boolean token) {
+	public ConfigArq(InetAddress ip, InetAddress nextIP, int porta, String apelidoOrigem, int tempo, boolean token, long tempoMG, long tempoMGtolerancia) {
 		setIpOrigemToken(ip);
 		setIpDestinoToken(nextIP);
 		setPorta(porta);
@@ -29,6 +39,10 @@ public class ConfigArq {
 		setTempoToken(tempo);
 		setToken(token);
 		setMaquinaGeradora(token);
+		setTempoMG(tempoMG);
+		setTempoMGtolerancia(tempoMGtolerancia);
+		setTokenAntes(-1);
+		setIgnoreToken(false);
 
 	}
 
@@ -94,5 +108,37 @@ public class ConfigArq {
 
 	public void setMaquinaGeradora(boolean maquinaGeradora) {
 		this.maquinaGeradora = maquinaGeradora;
+	}
+
+	public long getTempoMG() {
+		return tempoMG;
+	}
+
+	public void setTempoMG(long tempoMG2) {
+		this.tempoMG = tempoMG2;
+	}
+
+	public long getTempoMGtolerancia() {
+		return tempoMGtolerancia;
+	}
+
+	public void setTempoMGtolerancia(long tempoMGtolerancia2) {
+		this.tempoMGtolerancia = tempoMGtolerancia2;
+	}
+
+	public long getTokenAntes() {
+		return tokenAntes;
+	}
+
+	public void setTokenAntes(long l) {
+		this.tokenAntes = l;
+	}
+
+	public boolean getIgnoreToken() {
+		return ignoreToken;
+	}
+
+	public void setIgnoreToken(boolean ignoreToken) {
+		this.ignoreToken = ignoreToken;
 	}
 }
