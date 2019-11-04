@@ -7,7 +7,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 
 import ServerConfig.ConfigArq;
 import ServerConfig.StorageReceivedMessage;
@@ -58,7 +61,7 @@ public class Main {
 		BufferedReader inFromUser = new BufferedReader(new InputStreamReader(System.in));
 		String sentence = null;
 
-		System.out.println("Aquivo de configuração lido");
+		System.out.println("Aquivo de configuracao lido");
 		System.out.println("Deseja usar configuracoes externas - digite 1");
 		System.out.println("Ou deseja usar configuracoes internas (teste) - digite 2");
 
@@ -172,13 +175,44 @@ public class Main {
 	}
 
 	private static ConfigArq external(BufferedReader inFromUser, String ipDestino, int porta, String apelido,
-			int tempoToken, boolean maquinaGeradora) throws UnknownHostException {
+			int tempoToken, boolean maquinaGeradora) throws IOException {
 		String sentence = null;
-
+		System.out.println("Enumarando ips:");
+		int i = 0;
+		Enumeration Interfaces = NetworkInterface.getNetworkInterfaces();
+		while (Interfaces.hasMoreElements()) {
+			NetworkInterface Interface = (NetworkInterface) Interfaces.nextElement();
+			Enumeration Addresses = Interface.getInetAddresses();
+			while (Addresses.hasMoreElements()) {
+				i++;
+				InetAddress Address = (InetAddress) Addresses.nextElement();
+				System.out.println("ip " + i + ": " + Address.getHostAddress());
+			}
+		}
+		System.out.println("Digite o numero do ip que voce quer");
+		sentence = inFromUser.readLine();
+		int sentenceInt = Integer.parseInt(sentence);
+		i=0;
+		
+		
+		InetAddress myIP = null;
+		Interfaces = NetworkInterface.getNetworkInterfaces();
+		while (Interfaces.hasMoreElements()) {
+			NetworkInterface Interface = (NetworkInterface) Interfaces.nextElement();
+			Enumeration Addresses = Interface.getInetAddresses();
+			while (Addresses.hasMoreElements()) {
+				i++;
+				InetAddress Address = (InetAddress) Addresses.nextElement();
+				if(i==sentenceInt) {
+					myIP = Address;
+				}
+			}
+		}
+		System.out.println("Escolhido IP: " + myIP.getHostAddress());
 		// ip = InetAddress.getLocalHost();
 		// ip = InetAddress.getByName("localhost");
 		// String ip = "192.168.1.12";
-		InetAddress myIP = InetAddress.getLocalHost();
+		//InetAddress myIP = InetAddress.getLocalHost();
 		InetAddress nextIP = InetAddress.getByName(ipDestino);
 		long tempoMG = -1;
 		long tempoMGtolerancia = -1;
@@ -188,19 +222,14 @@ public class Main {
 			System.out.println(
 					"qual e o tempo (estipulado) para o token retornar a esta maquina depois de sair (em segundos)?");
 
-			try {
-				sentence = inFromUser.readLine();
-				tempoMG = Integer.parseInt(sentence);
-				tempoMG = tempoMG * 1000;
+			sentence = inFromUser.readLine();
+			tempoMG = Integer.parseInt(sentence);
+			tempoMG = tempoMG * 1000;
 
-				System.out.println("Qual o tempo de tolerancia? (intervalo de tempo em torno do tempo estipulado)");
-				sentence = inFromUser.readLine();
-				tempoMGtolerancia = Integer.parseInt(sentence);
-				tempoMGtolerancia = tempoMGtolerancia * 1000;
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			System.out.println("Qual o tempo de tolerancia? (intervalo de tempo em torno do tempo estipulado)");
+			sentence = inFromUser.readLine();
+			tempoMGtolerancia = Integer.parseInt(sentence);
+			tempoMGtolerancia = tempoMGtolerancia * 1000;
 		}
 
 		ConfigArq arquivoDeConfiguracao = new ConfigArq(myIP, nextIP, porta, apelido, tempoToken, maquinaGeradora,
