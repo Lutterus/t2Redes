@@ -20,10 +20,10 @@ public class StorageReceivedMessage {
 	}
 
 	public String getMessage() {
-		//metodo para obtencao de mensagens
+		// metodo para obtencao de mensagens
 		if (messages.size() == 0) {
-			//validacao se existem mensagem a serem obtidas
-			if(arquivoDeConfiguracao.getMaquinaGeradora()==true) {
+			// validacao se existem mensagem a serem obtidas
+			if (arquivoDeConfiguracao.getMaquinaGeradora() == true) {
 			}
 			return null;
 		} else {

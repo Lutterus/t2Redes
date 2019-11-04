@@ -48,7 +48,7 @@ public class ThreadListenServer implements Runnable {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			String message = new String(receivePacket.getData());
 			long currentTime = System.currentTimeMillis();
 			storageReceivedMessage.addMessage(message, currentTime);

@@ -2,8 +2,3 @@
 Bob
 1
 true
-
-<ip_destino_token>:porta
-<apelido_da _máquina_atual>
-<tempo_token>
-<token>

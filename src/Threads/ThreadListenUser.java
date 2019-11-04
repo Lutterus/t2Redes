@@ -18,7 +18,7 @@ public class ThreadListenUser implements Runnable {
 	private String sentence = "";
 	// classe com as informacoes uteis de configuracao
 	private ConfigArq arquivoDeConfiguracao;
-	//thread do anel, importado para reiniciar caso necessario
+	// thread do anel, importado para reiniciar caso necessario
 
 	public ThreadListenUser(ConfigArq arquivoDeConfiguracao, StorageMessage storageMessage) {
 		this.storageMessage = storageMessage;
@@ -54,20 +54,20 @@ public class ThreadListenUser implements Runnable {
 				// adiciona na classe que armazena a lista de mensagens a nova mensagem
 				storageMessage.addMessage(mensagem, arquivoDeConfiguracao.getApelidoDaMaquinaAtual(), apelidoDestino);
 			} catch (Exception e) {
-				if(sentence.contentEquals("TOKEN")||sentence.contentEquals("NTOKEN")) {
-					if(sentence.contentEquals("TOKEN")) {
+				if (sentence.contentEquals("TOKEN") || sentence.contentEquals("NTOKEN")) {
+					if (sentence.contentEquals("TOKEN")) {
 						System.out.println("Configuracao recebida. Novo token criado nesta maquina");
 						arquivoDeConfiguracao.setToken(true);
-					}else {
+					} else {
 						System.out.println("Configuracao recebida. o proximo token a passar sera ignorado");
 						arquivoDeConfiguracao.setIgnoreToken(true);
 					}
-				}else {
+				} else {
 					System.err.println("mensagem inserida no formato incorreto, utilize o formato informado");
 				}
-				
+
 			}
-			
+
 		}
 	}
 }
