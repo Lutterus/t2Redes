@@ -111,8 +111,6 @@ public class ThreadFlow implements Runnable {
 				}
 
 			}
-		} else if (consequence.contentEquals("adiantado")) {
-			System.out.println("ERRO: Token chegou antes do tempo estipulado. Este token sera removido");
 		} else {
 			// se nao estiver com o token e for uma mensagem com dados, ela sera analisada
 			seeMessage(sentence);
@@ -316,7 +314,6 @@ public class ThreadFlow implements Runnable {
 		}
 
 		if (tooLong == true) {
-			System.out.println("TOKEN recebido antes do tempo esperado. Removido por questao de seguranca");
 			return true;
 		} else {
 			return myTurn;
@@ -337,14 +334,19 @@ public class ThreadFlow implements Runnable {
 		long currentTime = System.currentTimeMillis();
 		long lastTime = arquivoDeConfiguracao.getTokenAntes();
 		long difference = currentTime - lastTime;
-		long limit = arquivoDeConfiguracao.getTempoMG() + arquivoDeConfiguracao.getTempoMGtolerancia();
+		long limit;
+		if (i == 1) {
+			limit = arquivoDeConfiguracao.getTempoMG() + arquivoDeConfiguracao.getTempoMGtolerancia();
+		} else {
+			limit = arquivoDeConfiguracao.getTempoMG() - arquivoDeConfiguracao.getTempoMGtolerancia();
+		}
+
 		if (limit < 0) {
 			limit = limit * (-1);
 		}
 		if (difference < 0) {
 			difference = difference * (-1);
 		}
-
 		if (i == 1) {
 			if (difference > limit) {
 				System.out.println("o tempo limite para retono do token foi excedido. Novo token criado");
@@ -355,7 +357,7 @@ public class ThreadFlow implements Runnable {
 			}
 		} else if (i == 2) {
 			if (difference < limit) {
-				System.out.println("Token recebido antes do experado. O token rera removido por seguranca");
+				System.out.println("Token recebido antes do experado. O token sera removido por seguranca");
 				return true;
 			} else {
 				return false;

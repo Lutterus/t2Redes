@@ -131,7 +131,7 @@ public class Main {
 		long tempoMG = -1;
 		long tempoMGtolerancia = -1;
 
-		System.out.println("Config 1, 2 ou 3?");
+		System.out.println("Config 1 ou 2?");
 
 		sentence = inFromUser.readLine();
 		if (sentence.contentEquals("1")) {
@@ -141,14 +141,9 @@ public class Main {
 			apelidoOrigem = "joao";
 		} else if (sentence.contentEquals("2")) {
 			myIP = InetAddress.getByName("127.0.0.2");
-			nextIP = InetAddress.getByName("127.0.0.3");
+			nextIP = InetAddress.getByName("127.0.0.1");
 			token = false;
 			apelidoOrigem = "lucas";
-		} else if (sentence.contentEquals("3")) {
-			myIP = InetAddress.getByName("127.0.0.3");
-			nextIP = InetAddress.getByName("127.0.0.1");
-			token = true;
-			apelidoOrigem = "pedro";
 		} else {
 			System.out.println("COMANDO NAO RECONHECIDO");
 		}
