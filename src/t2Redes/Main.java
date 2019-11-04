@@ -20,6 +20,7 @@ import Threads.ThreadListenUser;
 import UserConfig.StorageMessage;
 
 public class Main {
+	public static String localArquivoDeConfiguracao = "C:\\Users\\Joao\\Documents\\projetos\\trabalhos\\t2Redes\\assests\\arquivoDeConfiguracao.txt";
 
 	public static void main(String[] args) throws IOException {
 		// Mensagem para abrir o terminal
@@ -81,8 +82,7 @@ public class Main {
 
 	private static ConfigArq readTXT(BufferedReader inFromUser, ConfigArq arquivoDeConfiguracao, int j)
 			throws IOException {
-		String local = "C:\\Users\\Joao\\Documents\\projetos\\trabalhos\\t2Redes\\assests\\arquivoDeConfiguracao.txt";
-		File file = new File(local);
+		File file = new File(localArquivoDeConfiguracao);
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		int i = 0;
 		String st;
